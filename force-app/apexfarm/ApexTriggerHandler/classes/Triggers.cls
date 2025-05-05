@@ -33,7 +33,9 @@
 @SuppressWarnings('PMD')
 @NamespaceAccessible
 public class Triggers {
+    @NamespaceAccessible
     public static final Boolean WHEN_ALWAYS = true;
+    @NamespaceAccessible
     public static final Skips skips = new Skips();
 
     @TestVisible
@@ -52,6 +54,7 @@ public class Triggers {
         set;
     }
 
+    @NamespaceAccessible
     public static Manager prepare() {
         return new ManagerImpl();
     }
@@ -176,18 +179,22 @@ public class Triggers {
         }
     }
 
+    @NamespaceAccessible
     public class Skips {
         @TestVisible
         private final Set<Type> skippedHandlers = new Set<Type>();
 
+        @NamespaceAccessible
         public void add(type handlerType) {
             this.skippedHandlers.add(handlerType);
         }
 
+        @NamespaceAccessible
         public void remove(type handlerType) {
             this.skippedHandlers.remove(handlerType);
         }
 
+        @NamespaceAccessible
         public Boolean contains(type handlerType) {
             return this.skippedHandlers.contains(handlerType);
         }
@@ -197,6 +204,7 @@ public class Triggers {
             return contains(getHandlerType(handler));
         }
 
+        @NamespaceAccessible
         public void clear() {
             this.skippedHandlers.clear();
         }
@@ -208,9 +216,12 @@ public class Triggers {
         }
     }
 
+    @NamespaceAccessible
     public class Context {
         public final Map<Object, Object> state { get; private set; }
+        @NamespaceAccessible
         public final Skips skips { get; private set; }
+        @NamespaceAccessible
         public final Props props { get; private set; }
 
         private final List<Handler> handlers = new List<Handler>();
@@ -227,6 +238,7 @@ public class Triggers {
             this.currIndex = -1;
         }
 
+        @NamespaceAccessible
         public void stop() {
             this.currIndex = this.handlers.size();
         }
@@ -235,6 +247,7 @@ public class Triggers {
             return this.currIndex < this.handlers.size() - 1;
         }
 
+        @NamespaceAccessible
         public void next() {
             // prevent calling context.next() in criteria phase
             if (!this.isExecutingCriteria) {
@@ -288,37 +301,52 @@ public class Triggers {
         }
     }
 
+    @NamespaceAccessible
     public class Props {
         // Standard Properties
         @TestVisible
+        @NamespaceAccessible
         public Boolean isExecuting { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public Boolean isBefore { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public Boolean isAfter { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public Boolean isInsert { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public Boolean isUpdate { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public Boolean isDelete { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public Boolean isUndelete { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public List<SObject> oldList { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public Map<Id, SObject> oldMap { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public List<SObject> newList { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public Map<Id, SObject> newMap { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public TriggerOperation operationType { get; private set; }
         @TestVisible
+        @NamespaceAccessible
         public Integer size { get; private set; }
 
         // Custom Properties
         @TestVisible
+        @NamespaceAccessible
         public SObjectType sObjectType { get; private set; }
 
         @TestVisible
@@ -431,6 +459,7 @@ public class Triggers {
             }
         }
 
+        @NamespaceAccessible
         public List<Object> getValues(SObjectField field) {
             List<Object> values = new List<Object>();
             List<SObject> objects = new List<SObject>();
@@ -457,46 +486,57 @@ public class Triggers {
             return false;
         }
 
+        @NamespaceAccessible
         public Boolean isChanged(SObjectField field1) {
             return isChangedAny(new List<SObjectField>{ field1 });
         }
 
+        @NamespaceAccessible
         public Boolean isChangedAny(SObjectField field1, SObjectField field2) {
             return isChangedAny(new List<SObjectField>{ field1, field2 });
         }
 
+        @NamespaceAccessible
         public Boolean isChangedAny(SObjectField field1, SObjectField field2, SObjectField field3) {
             return isChangedAny(new List<SObjectField>{ field1, field2, field3 });
         }
 
+        @NamespaceAccessible
         public Boolean isChangedAny(List<SObjectField> fields) {
             return filterChangedAny(fields).size() > 0;
         }
 
+        @NamespaceAccessible
         public Boolean isChangedAll(SObjectField field1, SObjectField field2) {
             return isChangedAll(new List<SObjectField>{ field1, field2 });
         }
 
+        @NamespaceAccessible
         public Boolean isChangedAll(SObjectField field1, SObjectField field2, SObjectField field3) {
             return isChangedAll(new List<SObjectField>{ field1, field2, field3 });
         }
 
+        @NamespaceAccessible
         public Boolean isChangedAll(List<SObjectField> fields) {
             return filterChangedAll(fields).size() > 0;
         }
 
+        @NamespaceAccessible
         public List<Id> filterChanged(SObjectField field1) {
             return filterChangedAny(new List<SObjectField>{ field1 });
         }
 
+        @NamespaceAccessible
         public List<Id> filterChangedAny(SObjectField field1, SObjectField field2) {
             return filterChangedAny(new List<SObjectField>{ field1, field2 });
         }
 
+        @NamespaceAccessible
         public List<Id> filterChangedAny(SObjectField field1, SObjectField field2, SObjectField field3) {
             return filterChangedAny(new List<SObjectField>{ field1, field2, field3 });
         }
 
+        @NamespaceAccessible
         public List<Id> filterChangedAny(List<SObjectField> fields) {
             List<Id> changedIds = new List<Id>();
             if (this.isUpdate) {
@@ -513,14 +553,17 @@ public class Triggers {
             return changedIds;
         }
 
+        @NamespaceAccessible
         public List<Id> filterChangedAll(SObjectField field1, SObjectField field2) {
             return filterChangedAll(new List<SObjectField>{ field1, field2 });
         }
 
+        @NamespaceAccessible
         public List<Id> filterChangedAll(SObjectField field1, SObjectField field2, SObjectField field3) {
             return filterChangedAll(new List<SObjectField>{ field1, field2, field3 });
         }
 
+        @NamespaceAccessible
         public List<Id> filterChangedAll(List<SObjectField> fields) {
             List<Id> changedIds = new List<Id>();
             if (this.isUpdate) {
@@ -552,11 +595,13 @@ public class Triggers {
 
     //===================
     // #region interfaces
+    @NamespaceAccessible
     public interface Loader {
         List<Handler> load(SObjectType sObjectType, TriggerOperation triggerEvent);
         List<Handler> load(SObjectType sObjectType, TriggerOperation triggerEvent, String tag);
     }
 
+    @NamespaceAccessible
     public interface Manager {
         Manager beforeInsert();
         Manager afterInsert();
@@ -571,34 +616,42 @@ public class Triggers {
         void execute();
     }
 
+    @NamespaceAccessible
     public interface Handler {
         Boolean criteria(Context context);
     }
 
+    @NamespaceAccessible
     public interface BeforeInsert {
         void beforeInsert(Context context);
     }
 
+    @NamespaceAccessible
     public interface AfterInsert {
         void afterInsert(Context context);
     }
 
+    @NamespaceAccessible
     public interface BeforeUpdate {
         void beforeUpdate(Context context);
     }
 
+    @NamespaceAccessible
     public interface AfterUpdate {
         void afterUpdate(Context context);
     }
 
+    @NamespaceAccessible
     public interface BeforeDelete {
         void beforeDelete(Context context);
     }
 
+    @NamespaceAccessible
     public interface AfterDelete {
         void afterDelete(Context context);
     }
 
+    @NamespaceAccessible
     public interface AfterUndelete {
         void afterUndelete(Context context);
     }

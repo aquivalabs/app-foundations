@@ -1,10 +1,12 @@
 @NamespaceAccessible
 public with sharing abstract class SetupCtrl {
 
+    @NamespaceAccessible
     public SetupCtrl controller { get; private set; }
 
     // CONSTRUCTOR
 
+    @NamespaceAccessible
     public SetupCtrl() {
         controller = this;
     }
@@ -12,9 +14,11 @@ public with sharing abstract class SetupCtrl {
 
     // PUBLIC
 
+    @NamespaceAccessible
     public abstract List<SetupStep> steps();
 
 
+    @NamespaceAccessible
     public Integer getProgress() {
         Integer result = 0;
 
@@ -30,6 +34,7 @@ public with sharing abstract class SetupCtrl {
     }
 
 
+    @NamespaceAccessible
     public String getClasses() {
         return (getProgress() == 100) ? 'slds-progress-bar__value_success' : '';
     }

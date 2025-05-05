@@ -9,13 +9,19 @@ public abstract class DomainBuilder {
     private Map<SObjectField, DomainBuilder> parentByRelationship = new Map<SObjectField, DomainBuilder>();
     private Map<SObjectField, Map<SObjectField, List<DomainBuilder>>> relationshipsToSync
                         = new Map<SObjectField, Map<SObjectField, List<DomainBuilder>>>();
-    public SObject record;
+    
     public SObjectType type;
+    
+    @NamespaceAccessible
+    public SObject record;
+
+    @NamespaceAccessible
     public Id id { private set; get {return record.Id;} }
 
 
     // CONSTRUCTORS
 
+    @NamespaceAccessible
     public DomainBuilder(SObjectType type, Boolean isSetupObject) {
         this.type = type;
         this.record = type.newSObject(null, true);
@@ -26,6 +32,7 @@ public abstract class DomainBuilder {
     }
 
 
+    @NamespaceAccessible
     public DomainBuilder(SObjectType type) {
         this(type, false);
     }
@@ -33,6 +40,7 @@ public abstract class DomainBuilder {
 
     // PUBLIC
 
+    @NamespaceAccessible
     public SObject persist() {
         fflib_SObjectUnitOfWork uow = unitOfWork();
 
@@ -55,6 +63,7 @@ public abstract class DomainBuilder {
     }
 
 
+    @NamespaceAccessible
     public DomainBuilder recordType(String developerName) {
         Id rtId = type.getDescribe().getRecordTypeInfosByDeveloperName().get(developerName).getRecordTypeId();
         return set('RecordTypeId', rtId);
@@ -63,6 +72,7 @@ public abstract class DomainBuilder {
 
     // PROTECTED
 
+    @NamespaceAccessible
     protected DomainBuilder setParent(SObjectField relationship, DomainBuilder parent) {
         // Note: The parent registered last always wins!
         DomainBuilder oldParent = parentByRelationship.get(relationship);
@@ -91,6 +101,7 @@ public abstract class DomainBuilder {
     }
 
 
+    @NamespaceAccessible
     protected void syncOnChange(SObjectField sourceField, DomainBuilder targetObject, SObjectField targetField) {
         if( !relationshipsToSync.containsKey(sourceField)) {
             relationshipsToSync.put(sourceField, new Map<SObjectField, List<DomainBuilder>>());
@@ -105,18 +116,21 @@ public abstract class DomainBuilder {
     }
 
 
+    @NamespaceAccessible
     protected DomainBuilder set(String fieldName, Object value) {
         record.put(fieldName, value);
         return this;
     }
 
 
+    @NamespaceAccessible
     protected DomainBuilder set(SObjectField field, Object value) {
         record.put(field, value);
         return this;
     }
 
 
+    @NamespaceAccessible
     protected void unregisterIncludingParents() {
         objects.remove(this);
 

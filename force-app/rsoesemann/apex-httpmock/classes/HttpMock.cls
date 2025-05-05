@@ -1,6 +1,6 @@
-@NamespaceAccessible
 // Supress PMD for External library
 @SuppressWarnings('PMD')
+@NamespaceAccessible
 public class HttpMock implements HttpCalloutMock {
     private Map<String, Map<String, Object>> responses = new Map<String, Map<String, Object>>();
 
@@ -8,44 +8,54 @@ public class HttpMock implements HttpCalloutMock {
 
     // PUBLIC
 
+    @NamespaceAccessible
     public HttpMock get(String url, Object body, Integer statusCode) {
         return mock('GET', url, body, statusCode);
     }
 
+    @NamespaceAccessible
     public HttpMock get(String url, Object body) {
         return get(url, body, 200);
     }
 
+    @NamespaceAccessible
     public HttpMock post(String url, Object body, Integer statusCode) {
         return mock('POST', url, body, statusCode);
     }
 
+    @NamespaceAccessible
     public HttpMock post(String url, Object body) {
         return post(url, body, 200);
     }
 
+    @NamespaceAccessible
     public HttpMock patch(String url, Object body, Integer statusCode) {
         return mock('PATCH', url, body, statusCode);
     }
 
+    @NamespaceAccessible
     public HttpMock patch(String url, Object body) {
         return patch(url, body, 200);
     }
 
+    @NamespaceAccessible
     public HttpMock put(String url, Object body, Integer statusCode) {
         return mock('PUT', url, body, statusCode);
     }
 
+    @NamespaceAccessible
     public HttpMock put(String url, Object body) {
         return put(url, body, 200);
     }
 
+    @NamespaceAccessible
     public void mock() {
         Test.setMock(HttpCalloutMock.class, this);
     }
 
     // implements HttpCalloutMock
 
+    @NamespaceAccessible
     public HttpResponse respond(HttpRequest request) {
         HttpResponse result = badRequest();
 

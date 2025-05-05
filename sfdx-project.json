@@ -2,7 +2,7 @@
   "packageDirectories": [
     {
       "versionName": "May '25",
-      "versionNumber": "1.0.0.NEXT",
+      "versionNumber": "1.0.4.NEXT",
       "path": "force-app",
       "default": true,
       "package": "app-foundations",
@@ -15,6 +15,10 @@
   "sourceApiVersion": "63.0",
   "packageAliases": {
     "app-foundations": "0HoVI0000009yg50AA",
-    "app-foundations@1.0.0-1": "04tVI000000L1abYAC"
+    "app-foundations@1.0.0-1": "04tVI000000L1abYAC",
+    "app-foundations@1.0.1-1": "04tVI000000L1ltYAC",
+    "app-foundations@1.0.2-1": "04tVI000000L1p7YAC",
+    "app-foundations@1.0.3-1": "04tVI000000L2EvYAK",
+    "app-foundations@1.0.4-1": "04tVI000000L2GXYA0"
   }
 }

@@ -1,5 +1,6 @@
 @NamespaceAccessible
 public class ApplicationException extends Exception {
+    @NamespaceAccessible
     public override String getStackTraceString() {
         String result = '';
 

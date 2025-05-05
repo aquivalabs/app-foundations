@@ -5,6 +5,7 @@ public class User_t extends DomainBuilder {
 
 	// CONSTRUCTORS
 
+    @NamespaceAccessible
     public User_t() {
         super(User.SObjectType);
 
@@ -23,6 +24,7 @@ public class User_t extends DomainBuilder {
         set(User.UserPermissionsSFContentUser, false);
     }
 
+    @NamespaceAccessible
     public static User standard(String permsetName) {
         User result = standard();
         PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = :permsetName];
@@ -30,6 +32,7 @@ public class User_t extends DomainBuilder {
         return result;
     }
 
+    @NamespaceAccessible
     public static User standard() {
         return (User) new User_t().set(User.profileId, STANDARD_USER).persist();
     }

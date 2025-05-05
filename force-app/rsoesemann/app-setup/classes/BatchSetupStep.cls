@@ -1,7 +1,9 @@
+@NamespaceAccessible
 public abstract class BatchSetupStep extends SetupStep implements Database.Batchable<SObject> {
 
 	// PUBLIC
 
+	@NamespaceAccessible
 	public virtual override ApexPages.Message getStatus() {
 		String status = batchStatus();
 
@@ -16,11 +18,13 @@ public abstract class BatchSetupStep extends SetupStep implements Database.Batch
 	}
 
 
+	@NamespaceAccessible
 	public override String buttonLabel() {
 		return 'Run';
 	}
 
 
+	@NamespaceAccessible
 	public override PageReference run() {
         if(new List<String>{ null, 'Completed', 'Aborted' }.contains(batchStatus())) {
             Database.executeBatch(this, batchSize());
@@ -30,6 +34,7 @@ public abstract class BatchSetupStep extends SetupStep implements Database.Batch
 	}
 
 
+	@NamespaceAccessible
 	public abstract Integer batchSize();
 
 	

@@ -54,6 +54,7 @@
 // Note: PMD False Positive. We cant and don't want to modify external, proven Open Source libs
 //       This is only used to import/export Rules/Rulesets by user with the right permset. 
 @SuppressWarnings('PMD.ApexCRUDViolation')
+@NamespaceAccessible
 public inherited sharing virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
 {
     protected List<Schema.SObjectType> m_sObjectTypes = new List<Schema.SObjectType>();
@@ -128,11 +129,13 @@ public inherited sharing virtual class fflib_SObjectUnitOfWork implements fflib_
      *
      * @param sObjectTypes A list of objects given in dependency order (least dependent first)
      */
+    @NamespaceAccessible
     public fflib_SObjectUnitOfWork(List<Schema.SObjectType> sObjectTypes)
     {
         this(sObjectTypes,new SimpleDML());
     }
 
+    @NamespaceAccessible
     public fflib_SObjectUnitOfWork(List<Schema.SObjectType> sObjectTypes, IDML dml)
     {
         m_sObjectTypes = sObjectTypes.clone();
@@ -242,6 +245,7 @@ public inherited sharing virtual class fflib_SObjectUnitOfWork implements fflib_
      *
      * @param record A newly created SObject instance to be inserted during commitWork
      **/
+    @NamespaceAccessible
     public void registerNew(SObject record)
     {
         registerNew(record, null, null);
@@ -290,6 +294,7 @@ public inherited sharing virtual class fflib_SObjectUnitOfWork implements fflib_
      * @param relatedToField A SObjectField reference to the lookup field that relates the two records together
      * @param relatedTo A SObject instance (yet to be committed to the database)
      */
+    @NamespaceAccessible
     public void registerRelationship(SObject record, Schema.SObjectField relatedToField, SObject relatedTo)
     {
         String sObjectType = record.getSObjectType().getDescribe().getName();
@@ -308,6 +313,7 @@ public inherited sharing virtual class fflib_SObjectUnitOfWork implements fflib_
      * @param email a single email message instance
      * @param relatedTo A SObject instance (yet to be committed to the database)
      */
+    @NamespaceAccessible
     public void registerRelationship( Messaging.SingleEmailMessage email, SObject relatedTo )
     {
         m_relationships.get( Messaging.SingleEmailMessage.class.getName() ).add(email, relatedTo);
@@ -326,6 +332,7 @@ public inherited sharing virtual class fflib_SObjectUnitOfWork implements fflib_
      *
      * Wraps putSObject, creating a new instance of the lookup sobject using the external id field and value.
      */
+    @NamespaceAccessible
     public void registerRelationship(SObject record, Schema.SObjectField relatedToField, Schema.SObjectField externalIdField, Object externalId)
     {
         // NOTE: Due to the lack of ExternalID references on Standard Objects, this method can not be provided a standardized Unit Test. - Rick Parker
@@ -589,7 +596,8 @@ public inherited sharing virtual class fflib_SObjectUnitOfWork implements fflib_
     /**
      * Takes all the work that has been registered with the UnitOfWork and commits it to the database
      **/
-	public void commitWork()
+	@NamespaceAccessible
+    public void commitWork()
 	{
         Savepoint sp;
 

@@ -39,6 +39,7 @@ public with sharing class SObjectDataLoader
 	/**
 	 * Configuration uses a Fluent method design (http://en.wikipedia.org/wiki/Fluent_interface), 
 	 **/
+	@NamespaceAccessible
 	public class SerializeConfig
 	{
 		protected Set<Schema.SObjectField> followRelationships;
@@ -54,6 +55,7 @@ public with sharing class SObjectDataLoader
 		protected Integer maxChildDepth;
 		
 		
+		@NamespaceAccessible
 		public SerializeConfig()
 		{	
 			followRelationships = new Set<Schema.SObjectField>();
@@ -72,6 +74,7 @@ public with sharing class SObjectDataLoader
 		/**
 		 * Provide a field that represents the lookup relationship the serializer should follow
 		 **/
+		@NamespaceAccessible
 		public SerializeConfig follow(Schema.SObjectField relationshipField)
 		{
 			followRelationships.add(relationshipField);
@@ -81,6 +84,7 @@ public with sharing class SObjectDataLoader
 		/**
 		 * Keep relationship Id value without following (=serializing) the related object
 		 **/
+		@NamespaceAccessible
 		public SerializeConfig keepValue(Schema.SObjectField relationshipField)
 		{
 			keepRelationshipValues.add(relationshipField);
@@ -90,6 +94,7 @@ public with sharing class SObjectDataLoader
 		/**
 		 * Provide a field that represents a parent child relationship the serializer should follow
 		 **/
+		@NamespaceAccessible
 		public SerializeConfig followChild(Schema.SObjectField relationshipField)
 		{
 			followChildRelationships.add(relationshipField);
@@ -99,6 +104,7 @@ public with sharing class SObjectDataLoader
 		/**
 		 * Define maximum depth to where relationship fields are followed
 		 **/
+		@NamespaceAccessible
 		public SerializeConfig maxLookupDepth(Integer value)
 		{
 			maxLookupDepth = value;
@@ -108,6 +114,7 @@ public with sharing class SObjectDataLoader
 		/**
 		 * Define maximum depth to where child records are followed
 		 **/
+		@NamespaceAccessible
 		public SerializeConfig maxChildDepth(Integer value)
 		{
 			maxChildDepth = value;
@@ -117,6 +124,7 @@ public with sharing class SObjectDataLoader
 		/**
 		 * Provide a field that the serializer should omit from the serialized output
 		 **/
+		@NamespaceAccessible
 		public SerializeConfig omit(Schema.SObjectField omitField)
 		{
 			omitFields.add(omitField);
@@ -134,6 +142,7 @@ public with sharing class SObjectDataLoader
 		 *  Skip known system lookup and child relationships but include the rest (direct children only) upto certain depth, 
 		 *  Caller can always add or omit specific via follow or omit methods
 		 **/
+		@NamespaceAccessible
 		public SerializeConfig auto(Schema.SObjectType sObjectType)
 		{
 			followRelationships = new Set<Schema.SObjectField>();
@@ -149,6 +158,7 @@ public with sharing class SObjectDataLoader
 		/**
 		 * Provide a map that represents the object field relationship the serializer should whitelist
 		 **/
+		@NamespaceAccessible
 		public SerializeConfig addToUserChildRelationShipBlackList(Map<String,List<String>> childRelationShipBlackListMap)
 		{
 			UserChildRelationshipBlackListMap.putAll(childRelationShipBlackListMap);
@@ -158,12 +168,14 @@ public with sharing class SObjectDataLoader
 		/**
 		 * Provide a map that represents the object child relationship the serializer should whitelist
 		 **/
+		@NamespaceAccessible
 		public SerializeConfig addToUserFieldBlackList(Map<String,List<String>> fieldBlackListMap)
 		{
 			userFieldBlackListMap.putAll(fieldBlackListMap);
 			return this;
 		}
 		
+		@NamespaceAccessible
 		public SerializeConfig addToBlacklistedNamespace(Set<String> NamespaceList)
 		{
 			blacklistedNamespacePrefix.addAll(NamespaceList);
@@ -173,6 +185,7 @@ public with sharing class SObjectDataLoader
 		/**
 		 * Method adds blacklist Fields common for all Objects to fieldBlacklist 
 		**/
+		@NamespaceAccessible
 		public SerializeConfig omitCommonFields(Set<String> fieldnames)
 		{
 			if(fieldnames!=null && fieldnames.size()>0)
@@ -335,6 +348,7 @@ public with sharing class SObjectDataLoader
 	/**
 	 * Serialize the given records using the default configuration (see SerializeConfig.auto)
 	 **/
+	@NamespaceAccessible
 	public static String serialize(Set<Id> ids)
 	{
 		// Serialize based on no prior knowledge of the objects
@@ -359,6 +373,7 @@ public with sharing class SObjectDataLoader
 	/**
 	 * Serialize the given records using the given configuration
 	 **/
+	@NamespaceAccessible
 	public static String serialize(Set<Id> ids, SerializeConfig strategy)
 	{
 		return serialize(ids, new Map<Schema.SObjectType, SerializeConfig> { new List<Id>(ids)[0].getSObjectType() => strategy });
@@ -367,6 +382,7 @@ public with sharing class SObjectDataLoader
 	/**
 	 * Serialize the given records using the given configurationMap
 	 **/
+	@NamespaceAccessible
 	public static String serialize(Set<Id> ids, Map <Schema.SObjectType,SerializeConfig> strategyBySObjectType)
 	{			
 		// Validate parameters
@@ -414,6 +430,7 @@ public with sharing class SObjectDataLoader
 	/**
 	 * Deserialize the given JSON record set bundle
 	 **/
+	@NamespaceAccessible
 	public static Set<Id> deserialize(String recordsBundleAsJSON)
 	{
 		return deserialize(recordsBundleAsJSON, null);
@@ -422,6 +439,7 @@ public with sharing class SObjectDataLoader
 	/**
 	 * Deserialize the given JSON record set bundle utilising the given callback
 	 **/
+	@NamespaceAccessible
 	public static Set<Id> deserialize(String recordsBundleAsJSON, IDeserializeCallback callback)
 	{
 		// Desearialise the records bundle
@@ -796,6 +814,7 @@ public with sharing class SObjectDataLoader
 	/*
 	* Method to create a Map from json file
 	*/
+	@NamespaceAccessible
 	public static Map<String,List<Sobject>> deserializedRecords(String recordsBundleAsJSON)
 	{
 		Map<String,List<Sobject>> recordBundleMap = new Map<String,List<Sobject>>();
@@ -816,6 +835,7 @@ public with sharing class SObjectDataLoader
 	/** 
 	 * General exception class
 	 **/
+	@NamespaceAccessible
 	public class SerializerException extends Exception
 	{
 		
@@ -824,6 +844,7 @@ public with sharing class SObjectDataLoader
 	/**
 	 * Callback used during deserialization
 	 **/
+	@NamespaceAccessible
 	public interface IDeserializeCallback
 	{
 		/**
@@ -835,9 +856,12 @@ public with sharing class SObjectDataLoader
 	/**
 	 * Used during deserialization to allow caller to attempt to resolve references not resolved but required to insert records
 	 **/
+	@NamespaceAccessible
 	public class UnresolvedReferences
 	{
+		@NamespaceAccessible
 		public SObject Record;
+		@NamespaceAccessible
 		public Set<Schema.SObjectField> References;
 	}
 	
@@ -921,5 +945,6 @@ public with sharing class SObjectDataLoader
 	/**
 	 * Exception thrown in case the max depth for relationships is reached
 	 **/
+	@NamespaceAccessible
 	public class PreventInfinityLoopException extends Exception{}
 }
