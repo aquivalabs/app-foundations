@@ -3,6 +3,7 @@
  * Licensed under the MIT License (https://github.com/beyond-the-cloud-dev/http-mock-lib/blob/main/LICENSE)
 **/
 @IsTest
+@NamespaceAccessible
 public class HttpMock implements HttpMockLib, HttpCalloutMock {
     /*
         new HttpMock()
@@ -10,6 +11,7 @@ public class HttpMock implements HttpMockLib, HttpCalloutMock {
             .post('/api/v1/create').body('{ "success": true, "message": null }').statusCodeOk()
             .mock();
     */
+    @NamespaceAccessible
     public interface HttpMockLib {
         HttpMock get(String endpointToMock);
         HttpMock post(String endpointToMock);
@@ -68,30 +70,37 @@ public class HttpMock implements HttpMockLib, HttpCalloutMock {
 
     private HttpResponse workingHttpResponse = null;
 
+    @NamespaceAccessible
     public HttpMock get(String endpointToMock) {
         return add('GET', endpointToMock);
     }
 
+    @NamespaceAccessible
     public HttpMock post(String endpointToMock) {
         return add('POST', endpointToMock);
     }
 
+    @NamespaceAccessible
     public HttpMock put(String endpointToMock) {
         return add('PUT', endpointToMock);
     }
 
+    @NamespaceAccessible
     public HttpMock patch(String endpointToMock) {
         return add('PATCH', endpointToMock);
     }
 
+    @NamespaceAccessible
     public HttpMock deletex(String endpointToMock) {
         return add('DELETE', endpointToMock);
     }
 
+    @NamespaceAccessible
     public HttpMock trace(String endpointToMock) {
         return add('TRACE', endpointToMock);
     }
 
+    @NamespaceAccessible
     public HttpMock head(String endpointToMock) {
         return add('HEAD', endpointToMock);
     }
@@ -112,122 +121,151 @@ public class HttpMock implements HttpMockLib, HttpCalloutMock {
         return this;
     }
 
+    @NamespaceAccessible
     public HttpMock body(Object body) {
         return body(JSON.serialize(body));
     }
 
+    @NamespaceAccessible
     public HttpMock body(String body) {
         this.workingHttpResponse.setBody(body);
         return this;
     }
 
+    @NamespaceAccessible
     public HttpMock body(Blob body) {
         this.workingHttpResponse.setBodyAsBlob(body);
         return this;
     }
 
+    @NamespaceAccessible
     public HttpMock contentTypePlainText() {
         return contentType('text/plain');
     }
 
+    @NamespaceAccessible
     public HttpMock contentTypeHtml() {
         return contentType('text/html');
     }
 
+    @NamespaceAccessible
     public HttpMock contentTypeCsv() {
         return contentType('text/csv');
     }
 
+    @NamespaceAccessible
     public HttpMock contentTypeJson() {
         return contentType('application/json');
     }
 
+    @NamespaceAccessible
     public HttpMock contentTypePdf() {
         return contentType('application/pdf');
     }
 
+    @NamespaceAccessible
     public HttpMock contentTypeXml() {
         return contentType('application/xml');
     }
 
+    @NamespaceAccessible
     public HttpMock contentTypeFormUrlencoded() {
         return contentType('application/x-www-form-urlencoded');
     }
 
+    @NamespaceAccessible
     public HttpMock contentType(String contentType) {
         return header('Content-Type', contentType);
     }
 
+    @NamespaceAccessible
     public HttpMock header(String key, String value) {
         this.workingHttpResponse.setHeader(key, value);
         return this;
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeOk() {
         return statusCode(200);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeCreated() {
         return statusCode(201);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeAccepted() {
         return statusCode(202);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeNoContent() {
         return statusCode(204);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeBadRequest() {
         return statusCode(400);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeUnauthorized() {
         return statusCode(401);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeForbidden() {
         return statusCode(403);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeNotFound() {
         return statusCode(404);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeMethodNotAllowed() {
         return statusCode(405);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeInternalServerError() {
         return statusCode(500);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeNotImplemented() {
         return statusCode(501);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeBadGateway() {
         return statusCode(502);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeServiceUnavailable() {
         return statusCode(503);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCodeGatewayTimeout() {
         return statusCode(504);
     }
 
+    @NamespaceAccessible
     public HttpMock statusCode(Integer statusCode) {
         this.workingHttpResponse.setStatusCode(statusCode);
         return this;
     }
 
+    @NamespaceAccessible
     public void mock() {
         Test.setMock(HttpCalloutMock.class, this);
     }
 
+    @NamespaceAccessible
     public HttpResponse respond(HttpRequest request) {
         String closestMatchingMockedEndpoint = findClosestMatchingMockedEndpoint(request);
 
@@ -252,6 +290,7 @@ public class HttpMock implements HttpMockLib, HttpCalloutMock {
         return findClosestMatchingMockedEndpoint(httpRequestEndpoint, mocks.get(httpRequestMethod).keySet());
     }
 
+    @NamespaceAccessible
     public static String findClosestMatchingMockedEndpoint(String requestEndpoint, Set<String> mockedEndpoints) {
         String closestMatchingMockedEndpoint = null;
         Integer maxMatchLength = 0;
@@ -275,6 +314,8 @@ public class HttpMock implements HttpMockLib, HttpCalloutMock {
         requestCountByMethodAndEndpoint.get(httpMethod).put(endpoint, currentCount + 1);
     }
 
+    @NamespaceAccessible
     public class HttpMethodNotMockedException extends Exception {}
+    @NamespaceAccessible
     public class HttpEndpointNotMockedException extends Exception {}
 }
