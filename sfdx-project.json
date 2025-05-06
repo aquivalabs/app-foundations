@@ -2,7 +2,7 @@
   "packageDirectories": [
     {
       "versionName": "May '25",
-      "versionNumber": "1.0.6.NEXT",
+      "versionNumber": "1.0.8.NEXT",
       "path": "force-app",
       "default": true,
       "package": "app-foundations",
@@ -21,6 +21,7 @@
     "app-foundations@1.0.3-1": "04tVI000000L2EvYAK",
     "app-foundations@1.0.4-1": "04tVI000000L2GXYA0",
     "app-foundations@1.0.5-1": "04tVI000000L2ObYAK",
-    "app-foundations@1.0.6-1": "04tVI000000L2QDYA0"
+    "app-foundations@1.0.6-1": "04tVI000000L2QDYA0",
+    "app-foundations@1.0.7-1": "04tVI000000L369YAC"
   }
 }
